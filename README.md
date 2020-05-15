@@ -1,33 +1,34 @@
-## 概要
+# README
 
-Ansible用playbookです。
-CentOS7環境に、Zabbix-server(rpm)とZabbix-agent(rpm)の機能を自動設定する。
+## 概要  
 
+Ansible用playbookです。  
+CentOS7環境に、Zabbix-server（rpm）とZabbix-agent（rpm）の機能を自動設定する。
 
 ## 対象となる環境
 
-* CentOS7 ( RHEL7 )
+* CentOS7（RHEL7）
 * インターネットにつながり、ansibleサーバからrootユーザで直接sshできること
 
 ## 自動設定内容
 
-* os(共通(common))
+* os（共通（common））
 	+ selinux無効化
-	+ timezoneの設定(zone情報指定可能)
-	+ chrony(時刻同期先IP指定可能)
+	+ timezoneの設定（zone情報指定可能）
+	+ chrony（時刻同期先IP指定可能）
 	+ zabbix-repoの登録
 
 * zabbix-server
-	+ beta-zabbix4.0 (zabbix official repo)
-	+ mariadb( DB名"zabbix"のユーザ"zabbix"のパスワード指定可能)
+	+ beta-zabbix4.0（zabbix official repo）
+	+ mariadb（DB名"zabbix"のユーザ"zabbix"のパスワード指定可能）
 	+ httpd
-	+ snmptrapd( snmptrapの受付コミュニティ名指定可能)
-	+ snmptt(epel repo)
+	+ snmptrapd（snmptrapの受付コミュニティ名指定可能）
+	+ snmptt（epel repo）
 
 * zabbix-agent
-	+ zabbix-agent4.0( zabbix-serverのIP指定可能)
+	+ zabbix-agent4.0（zabbix-serverのIP指定可能）
 
-# 指定可能なインストール先
+## 指定可能なインストール先
 
 * zabbix40/inventory/inventory.ini
 
@@ -36,7 +37,7 @@ CentOS7環境に、Zabbix-server(rpm)とZabbix-agent(rpm)の機能を自動設�
 [zabbix_agents] ... zabbix-agent client
 ```
 
-# 指定可能な設定内容
+## 指定可能な設定内容
 
 * zabbix40/roles/common/vars/main.yml
 
@@ -53,16 +54,16 @@ zabbix_setup:
     zabbix_server_ip: "192.168.0.56" ... Zabbix server's IP
 ```
 
-### 簡単な実施方法
+## 簡単な実施方法
 
-# ansibleが稼働するサーバで、git clone実施
+## ansibleが稼働するサーバで、git clone実施
 
 ```
 git clone https://github.com/HOBO1108/zabbix40-ansible.git
 cd zabbix40-ansible/
 ```
 
-# Zabbix用IPアドレスを設定
+## Zabbix用IPアドレスを設定
 
 - 192.168.0.56の部分を、Zabbix用IPアドレスに変更してください。
 - 初期は、192.168.0.56にZabbixServer/Agentを導入するよう記載している。
@@ -76,12 +77,14 @@ vi zabbix40/inventory/inventory.ini
 192.168.0.56 ansible_ssh_user=root
 ```
 
-# ansible-playbook実行
+## ansible-playbook実行
+
 ```
 ansible-playbook -i zabbix40/inventory/inventory.ini zabbix40/site.yml
 ```
 
-無事完了すると、zabbixサーバ上でzabbixサーバが稼働しています。以下、URLでアクセス可能。
+無事完了すると、zabbixサーバ上でzabbixサーバが稼働しています。以下、URLでアクセス可能。  
+
 ```
 http://{zabbix-ip}/zabbix
   ID = Admin
